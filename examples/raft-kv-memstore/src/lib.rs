@@ -77,9 +77,7 @@ pub async fn start_example_raft_node(node_id: NodeId, http_addr: String) -> std:
         id: node_id,
         addr: http_addr.clone(),
         raft,
-        log_store,
         state_machine_store,
-        config,
     });
 
     // Start the actix-web server.
@@ -101,7 +99,7 @@ pub async fn start_example_raft_node(node_id: NodeId, http_addr: String) -> std:
             // application API
             .service(api::write)
             .service(api::read)
-            .service(api::consistent_read)
+            .service(api::linearizable_read)
     });
 
     let x = server.bind(http_addr)?;
