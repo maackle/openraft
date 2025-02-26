@@ -116,6 +116,7 @@ pub use crate::node::BasicNode;
 pub use crate::node::EmptyNode;
 pub use crate::node::Node;
 pub use crate::node::NodeId;
+pub use crate::quorum::QuorumSet;
 pub use crate::raft::Raft;
 pub use crate::raft_state::MembershipState;
 pub use crate::raft_state::RaftState;
