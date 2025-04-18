@@ -42,7 +42,9 @@ where
 }
 
 impl<C> Debug for Entry<C>
-where C: RaftTypeConfig
+where
+    C: RaftTypeConfig,
+    C::D: Debug,
 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("Entry").field("log_id", &self.log_id).field("payload", &self.payload).finish()
@@ -95,7 +97,9 @@ where C: RaftTypeConfig
 }
 
 impl<C> RaftEntry<C> for Entry<C>
-where C: RaftTypeConfig
+where
+    C: RaftTypeConfig,
+    C::D: Debug,
 {
     fn new(log_id: LogIdOf<C>, payload: EntryPayload<C>) -> Self {
         Self { log_id, payload }

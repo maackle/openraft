@@ -21,6 +21,7 @@ pub fn blank_ent<C>(term: u64, node_id: C::NodeId, index: u64) -> crate::Entry<C
 where
     C: RaftTypeConfig,
     C::Term: From<u64>,
+    C::D: std::fmt::Debug,
 {
     crate::Entry::<C>::new_blank(log_id::<C>(term, node_id, index))
 }
@@ -31,6 +32,7 @@ where
     C: RaftTypeConfig,
     C::Term: From<u64>,
     C::Node: Default,
+    C::D: std::fmt::Debug,
 {
     crate::Entry::new_membership(
         log_id::<C>(term, node_id, index),

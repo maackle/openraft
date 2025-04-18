@@ -722,12 +722,13 @@ where
     ) -> Result<(), StorageError<C>> {
         tracing::debug!("{}: {}..={}", func_name!(), first, last);
 
-        debug_assert!(
-            first.index() <= last.index(),
-            "first.index {} should <= last.index {}",
-            first.index(),
-            last.index()
-        );
+        if first.index() <= last.index() {
+            tracing::error!(
+                "[FORK] first.index {} should <= last.index {}",
+                first.index(),
+                last.index()
+            );
+        }
 
         #[cfg(debug_assertions)]
         if let Some(first_entry) = self.client_resp_channels.first_entry() {

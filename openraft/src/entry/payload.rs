@@ -32,11 +32,13 @@ where
     }
 }
 
-impl<C: RaftTypeConfig> fmt::Debug for EntryPayload<C> {
+impl<C: RaftTypeConfig> fmt::Debug for EntryPayload<C>
+where C::D: fmt::Debug
+{
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self {
             EntryPayload::Blank => write!(f, "blank")?,
-            EntryPayload::Normal(_n) => write!(f, "normal")?,
+            EntryPayload::Normal(n) => write!(f, "normal:{n:?}")?,
             EntryPayload::Membership(c) => {
                 write!(f, "membership:{:?}", c)?;
             }

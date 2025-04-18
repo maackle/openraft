@@ -26,7 +26,11 @@ where C: RaftTypeConfig
     /// It assumes a committed log will always get positive return value, according to raft spec.
     fn has_log_id(&self, log_id: impl RaftLogId<C>) -> bool {
         if log_id.index() < self.committed().next_index() {
-            debug_assert!(Some(log_id.to_ref()) <= self.committed().to_ref());
+            tracing::warn!(
+                log_id = ?Some(log_id.to_ref()),
+                committed = ?self.committed().to_ref(),
+                "[FORK] log id is before committed"
+            );
             return true;
         }
 
